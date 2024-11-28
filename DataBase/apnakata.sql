@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2022 at 11:23 AM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.9
+-- Generation Time: Nov 28, 2024 at 09:42 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,15 +32,16 @@ CREATE TABLE `tbladmin` (
   `adminName` varchar(45) NOT NULL,
   `adminEmail` varchar(45) NOT NULL,
   `adminPassword` varchar(45) NOT NULL,
-  `adminStatus` int(2) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `adminStatus` int(2) NOT NULL DEFAULT 1,
+  `otp` varchar(55) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbladmin`
 --
 
-INSERT INTO `tbladmin` (`adminId`, `adminName`, `adminEmail`, `adminPassword`, `adminStatus`) VALUES
-(3, 'shayan ahmad', 'shayan@gmail.com', 'shayan', 1);
+INSERT INTO `tbladmin` (`adminId`, `adminName`, `adminEmail`, `adminPassword`, `adminStatus`, `otp`) VALUES
+(3, 'shayan ahmad', 'shayanahmad235@gmail.com', 'shayan', 1, '7693');
 
 -- --------------------------------------------------------
 
@@ -53,7 +54,7 @@ CREATE TABLE `tblpaymentcit` (
   `paymentBRTCit` varchar(45) NOT NULL,
   `paymentLocalCit` varchar(45) NOT NULL,
   `paymentDateCit` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -66,7 +67,7 @@ CREATE TABLE `tblpaymentdotcom` (
   `paymentBRTDotCom` varchar(45) NOT NULL,
   `paymentLocalDotCom` varchar(45) NOT NULL,
   `paymentDateDotCom` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tblpaymentdotcom`
@@ -108,7 +109,15 @@ CREATE TABLE `tblpaymentuni` (
   `paymentBRT` varchar(45) NOT NULL,
   `paymentLocal` varchar(45) NOT NULL,
   `paymentDate` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tblpaymentuni`
+--
+
+INSERT INTO `tblpaymentuni` (`paymentId`, `paymentBRT`, `paymentLocal`, `paymentDate`) VALUES
+(1, '70', '120', '2024-10-30'),
+(2, '70', '150', '2024-10-31');
 
 --
 -- Indexes for dumped tables
@@ -164,7 +173,7 @@ ALTER TABLE `tblpaymentdotcom`
 -- AUTO_INCREMENT for table `tblpaymentuni`
 --
 ALTER TABLE `tblpaymentuni`
-  MODIFY `paymentId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `paymentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
