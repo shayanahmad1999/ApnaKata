@@ -4,19 +4,34 @@ require 'process/connection.php';
 if(isset($_POST['Admin']) && $_POST['Admin'] == 'login'){
 $Email = $_POST['email'];
 $Password = $_POST['password'];
+
 $query = "select * from tbladmin where adminEmail = '$Email' and adminPassword = '$Password'";
 $responce = mysqli_query($connect,$query);
 $rows = mysqli_num_rows($responce);
 if($rows > 0)
 {
+
  $result = mysqli_fetch_array($responce); 
 
- $_SESSION['ADMINname'] = $result['adminName'];
- $_SESSION['ADMINid'] = $result['adminId'];
- $_SESSION['ADMINemail'] = $result['adminEmail'];
-// print_r($_SESSION); exit;
-header('location:home.php?msg=success');
-exit();
+ $rand = rand(0000,9999);
+
+$to = $result['adminEmail'];
+$subject = "Hello dear";
+$message = "<html><body><h1>Please Enter This OTP to Continue Your Login!</h1><p>$rand</p></body></html>";
+$headers = "From: shayanahmad235@gmail.com\r\n";
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
+if (mail($to, $subject, $message, $headers)) {
+  $query = "UPDATE tbladmin SET otp = '$rand' WHERE adminEmail = '$Email'";
+  $responce = mysqli_query($connect,$query);
+  $result = mysqli_query($connect,$query);
+  header('location:otp.php?msg=success');
+  exit();
+} else {
+    echo "Email failed!";
+}
+
 }
 else
 {
